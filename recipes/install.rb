@@ -1,8 +1,9 @@
 #
-# Cookbook:: build_cookbook
-# Recipe:: syntax
+# Cookbook:: lxd_two
+# Recipe:: install
 #
 # Copyright:: 2017, Ryan Hass
+# Copyright:: 2017, Chef Software Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,4 +17,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-include_recipe 'delivery-truck::syntax'
+apt_update
+
+package 'lxd' do
+  default_release "#{node['lsb']['codename']}-backports" if platform?('ubuntu') && node['platform_version'] == '16.04'
+  action [:install, :upgrade]
+end
+
+service 'lxd' do
+  action [:enable, :start]
+end
