@@ -1,6 +1,6 @@
 #
-# Cookbook:: build_cookbook
-# Recipe:: security
+# Cookbook:: lxd_two_test
+# Recipe:: default
 #
 # Copyright:: 2017, Ryan Hass
 #
@@ -16,4 +16,4 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-include_recipe 'delivery-truck::security'
+include_recipe 'lxd_two::default'
