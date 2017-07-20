@@ -17,3 +17,4 @@
 # limitations under the License.
 
 include_recipe 'lxd_two::install'
+include_recipe 'lxd_two::configure'

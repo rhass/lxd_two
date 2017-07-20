@@ -1,8 +1,9 @@
 #
-# Cookbook:: lxd_two_test
-# Spec:: default
+# Cookbook:: lxd_two
+# Recipe:: configure
 #
 # Copyright:: 2017, Ryan Hass
+# Copyright:: 2017, Chef Software Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,20 +17,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-
-require 'spec_helper'
-
-describe 'lxd_two_test::default' do
-  context 'When all attributes are default, on an Ubuntu 16.04' do
-    let(:chef_run) do
-      # for a complete list of available platforms and versions see:
-      # https://github.com/customink/fauxhai/blob/master/PLATFORMS.md
-      runner = ChefSpec::ServerRunner.new(platform: 'ubuntu', version: '16.04')
-      runner.converge(described_recipe)
-    end
-
-    it 'converges successfully' do
-      expect { chef_run }.to_not raise_error
-    end
-  end
+execute 'lxd_init' do
+  command "echo \"#{node['lxd']['preseed'].to_hash.to_yaml}\" | lxd init --preseed"
+  sensitive true
 end

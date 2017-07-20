@@ -19,6 +19,8 @@
 
 apt_update
 
+package %w{btrfs-tools zfs}
+
 package 'lxd' do
   default_release "#{node['lsb']['codename']}-backports" if platform?('ubuntu') && node['platform_version'] == '16.04'
   action [:install, :upgrade]

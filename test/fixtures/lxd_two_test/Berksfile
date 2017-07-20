@@ -2,3 +2,5 @@
 source 'https://supermarket.chef.io'
 
 metadata
+
+cookbook 'lxd_two', path: '../../../'

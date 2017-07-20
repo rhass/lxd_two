@@ -18,8 +18,12 @@ platforms:
 suites:
   - name: default
     run_list:
-      - recipe[lxd_two::default]
+      - recipe[lxd_two_test::default]
     verifier:
       inspec_tests:
         - test/smoke/default
     attributes:
+      foo:
+        bar:
+          - fizz
+          - buzz
