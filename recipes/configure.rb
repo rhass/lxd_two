@@ -65,7 +65,16 @@ execute 'apply_sysctl_settings' do
   subscribes :run, 'file[/etc/sysctl.d/60-lxd.conf]'
 end
 
+lxd_preseed = ::File.join(Chef::Config['file_cache_path'], 'lxd-preseed.yml')
+file lxd_preseed do
+  owner 'root'
+  mode 0600
+  content node['lxd']['preseed'].to_hash.to_yaml
+end
+
 execute 'lxd_init' do
-  command "echo \"#{node['lxd']['preseed'].to_hash.to_yaml}\" | lxd init --preseed"
+  command "cat #{lxd_preseed} | lxd init --preseed"
   sensitive true
+  action :nothing
+  subscribes :run, "file[#{lxd_preseed}]"
 end
