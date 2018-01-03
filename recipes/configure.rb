@@ -70,11 +70,11 @@ file lxd_preseed do
   owner 'root'
   mode 0600
   content node['lxd']['preseed'].to_hash.to_yaml
+  sensitive true
 end
 
 execute 'lxd_init' do
   command "cat #{lxd_preseed} | lxd init --preseed"
-  sensitive true
   action :nothing
   subscribes :run, "file[#{lxd_preseed}]"
 end
