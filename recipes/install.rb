@@ -19,7 +19,10 @@
 
 apt_update
 
-package %w(btrfs-tools zfs)
+package value_for_platform(
+  'ubuntu' => { '~> 16.04' => %w(btrfs-tools zfs) },
+  'ubuntu' => { '>= 18.04' => %w(btrfs-tools zfsutils-linux) }
+)
 
 package 'lxd' do
   default_release "#{node['lsb']['codename']}-backports" if platform?('ubuntu') && node['platform_version'] == '16.04'
