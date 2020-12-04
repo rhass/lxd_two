@@ -65,6 +65,7 @@ execute 'apply_sysctl_settings' do
   subscribes :run, 'file[/etc/sysctl.d/60-lxd.conf]'
 end
 
+require 'yaml'
 lxd_preseed = ::File.join(Chef::Config['file_cache_path'], 'lxd-preseed.yml')
 file lxd_preseed do
   owner 'root'
